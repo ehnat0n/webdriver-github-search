@@ -3,7 +3,7 @@
 This is a test project for [GitHub User Search](https://gh-users-search.netlify.app/). The goal is to practice API
 automation and to explore the dependency between API calls and data populated on UI.
 
-Project is done in BDD style with Behave. Tests are written in Gherkin format.
+Project is done in BDD style with Python and Behave. Tests are written in Gherkin language.
 
 Following packages are required (see `requirements.txt`):
 
@@ -12,7 +12,7 @@ Following packages are required (see `requirements.txt`):
 - requests
 - jsonpath-ng
 
-Manual test cases are in `backclog/<component>.feature` files.
+Manual test cases are in `backlog/<component>.feature` files.
 
 Automated test cases are in `features/<component>.feature` files.
 
