@@ -2,6 +2,9 @@ from behave import fixture, use_fixture
 from selenium.webdriver import Chrome
 from selenium.webdriver.support.wait import WebDriverWait
 
+from pom.components.search_field import SearchField
+from pom.components.user_info import UserInfo
+
 # -- CONFIG
 IS_MAXIMIZED = True
 IMPLICIT_WAIT = 0.0
@@ -24,4 +27,7 @@ def browser_chrome(context):
 def before_feature(context, feature):
     use_fixture(browser_chrome, context)
     context.wait = WebDriverWait(context.browser, EXPLICIT_WAIT)
+
+    context.search_field_element = SearchField(context)
+    context.user_info_element = UserInfo(context)
     # -- CLEANUP-FIXTURE is called after after_feature() hook
