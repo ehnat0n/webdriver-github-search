@@ -12,5 +12,15 @@ class Locators:
     SEARCH_FIELD = (By.XPATH, "//input[@data-testid='search-bar']")
     SEARCH_BUTTON = (By.XPATH, "//button[@type='submit']")
 
+    # User Info component
+    FULL_NAME = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//header//h4")
+    TWITTER = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//header//p")
+    FOLLOW_BUTTON = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//header//a")
+    BIO = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//p[@class='bio']")
+    COMPANY = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//div[@class='links']/p[1]")
+    LOCATION = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//div[@class='links']/p[2]")
+    BLOG = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//div[@class='links']/a")
+
     # GitHub API endpoints
+    GITHUB_HOMEPAGE = "https://github.com/"
     GITHUB_API_USERS = "https://api.github.com/users/"

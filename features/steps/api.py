@@ -50,3 +50,47 @@ def step_impl(context):
     response = eval(var_name)
 
     pprint(response.json())
+
+
+@then("Displayed {data_entry} matches API response")
+def step_impl(context, data_entry):
+    """
+    Checks if displayed `data_entry` matches the API response stored in `context.table`.
+    :param data_entry: piece of the GitHub user information
+    (Full Name, Twitter, Bio, Company Name, Location, Blog)
+    :type context: behave.runner.Context
+    """
+    var_name = context.table.headings[0]
+    response = eval(var_name)
+
+    data_key = ""
+    element_locator = None
+
+    match data_entry:
+        case "Full Name":
+            data_key = "name"
+            element_locator = Locators.FULL_NAME
+        case "Twitter":
+            data_key = "twitter_username"
+            element_locator = Locators.TWITTER
+        case "Bio":
+            data_key = "bio"
+            element_locator = Locators.BIO
+        case "Company Name":
+            data_key = "company"
+            element_locator = Locators.COMPANY
+        case "Location":
+            data_key = "location"
+            element_locator = Locators.LOCATION
+        case "Blog":
+            data_key = "blog"
+            element_locator = Locators.BLOG
+        case _:
+            print(f"Invalid data entry alias - {data_entry}. \
+                  Use Full Name, Twitter, Bio, Company Name, Location, Blog")
+
+    api_data = response.json()[data_key]
+    ui_data = context.user_info_element.get_element_text(element_locator)
+
+    assert api_data == ui_data, \
+        f"Error comparing UI and API values for {data_entry}. API: {api_data}. UI: {ui_data}"
