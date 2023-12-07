@@ -1,3 +1,4 @@
+"""Module with a single class to store locators and some string constants for the project."""
 from selenium.webdriver.common.by import By
 
 

@@ -1,3 +1,4 @@
+"""Behave hooks."""
 from behave import fixture, use_fixture
 from selenium.webdriver import Chrome
 from selenium.webdriver.support.wait import WebDriverWait
@@ -13,6 +14,7 @@ EXPLICIT_WAIT = 5
 
 @fixture
 def browser_chrome(context):
+    """Fixture for the Chrome browser. Settings are picked up from `CONFIG` constants."""
     # -- BEHAVE-FIXTURE:
     context.browser = Chrome()
     if IS_MAXIMIZED:
@@ -24,7 +26,8 @@ def browser_chrome(context):
     context.browser.quit()
 
 
-def before_feature(context, feature):
+def before_feature(context):
+    """Set up Chrome fixture, wait and web app elements for every feature run."""
     use_fixture(browser_chrome, context)
     context.wait = WebDriverWait(context.browser, EXPLICIT_WAIT)
 

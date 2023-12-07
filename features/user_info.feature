@@ -14,15 +14,32 @@ Requirements:
   - Location shows 'earth' value
 """
 
-  Scenario: The user’s component populates Full Name, Twitter, Bio, Company Name, Location, and Blog
-    When I set username as nadvolod and save it to user_name
-    And I get user info from GitHub API and save it to feature.user_data
+  Scenario: The follow button should redirect to GitHub
+    Given I set username as ehnat0n and save it to user_name
+    When Navigate to project homepage
+    And I search for user using search button
       | context.user_name |
-    And Navigate to project homepage
+    Then Follow button should redirect to the user's GitHub profile
+      | context.user_name |
+
+  Scenario: Blog link redirects to the corresponding URL
+    Given I set username as nadvolod and save it to user_name
+    When Navigate to project homepage
+    And I search for user using search button
+      | context.user_name |
+    Then Blog link should redirect to the displayed URL
+
+  Scenario: Get user info with full data and save it on feature level
+    Given I set username as nadvolod and save it to user_name
+    When I get user info from GitHub API and save it to feature.user_data
+      | context.user_name |
+    Then I verify the response code is 200
+      | context.feature.user_data |
+    When Navigate to project homepage
     And I search for user using search button
       | context.user_name |
 
-  Scenario Outline:
+  Scenario Outline: The user’s component populates Full Name, Twitter, Bio, Company Name, Location, and Blog
     Then Displayed <data> matches API response
       | context.feature.user_data |
 
@@ -35,18 +52,20 @@ Requirements:
       | Location     |
       | Blog         |
 
-  Scenario: For not existing data blank fields should be displayed, location - "earth"
-    When I set username as ehnat0n and save it to user_name
-    And I update test user with empty_data
+  Scenario: Get user info with empty data and save it on feature level
+    Given I set username as ehnat0n and save it to user_name
+    When I update test user with empty_data and save the response to response_data
       | context.user_name |
-    And I get user info from GitHub API and save it to feature.user_data
+    Then I verify the response code is 200
+      | context.response_data |
+    And Wait for 20 seconds
+    Given I get user info from GitHub API and save it to feature.user_data
       | context.user_name |
-    And Navigate to project homepage
+    When Navigate to project homepage
     And I search for user using search button
       | context.user_name |
-    And Wait for 1 seconds
 
-  Scenario Outline:
+  Scenario Outline: For non existing data blank fields should be displayed, location - "earth"
     Then Displayed <data> matches API response
       | context.feature.user_data |
 
@@ -59,19 +78,19 @@ Requirements:
       | Location     |
       | Blog         |
 
-  Scenario: All data should be updated (page refresh) once changes applied on GitHub app
-    When I set username as ehnat0n and save it to user_name
-    And I update test user with full_data
+  Scenario: Get user info after filling all the fields and save it on feature level
+    Given I set username as ehnat0n and save it to user_name
+    When I update test user with full_data and save the response to response_data
       | context.user_name |
+    Then I verify the response code is 200
+      | context.response_data |
     And I get user info from GitHub API and save it to feature.user_data
       | context.user_name |
     And Navigate to project homepage
-    #And Refresh the page
     And I search for user using search button
       | context.user_name |
-    And Wait for 1 seconds
 
-  Scenario Outline:
+  Scenario Outline: All data should be updated (page refresh) once changes applied on GitHub app
     Then Displayed <data> matches API response
       | context.feature.user_data |
 

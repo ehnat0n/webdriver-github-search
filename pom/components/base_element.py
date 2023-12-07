@@ -1,8 +1,10 @@
+"""Reusable base element methods for Selenium WebDriver."""
 from selenium.webdriver.support import expected_conditions as ec
 
 
 class BaseElement:
     """Base Element class that contains most common methods and aliases for all pom."""
+
     def __init__(self, context):
         self.driver = context.browser
         self.wait = context.wait

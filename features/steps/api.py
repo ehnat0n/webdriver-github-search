@@ -3,7 +3,7 @@ import json
 from pprint import pprint
 
 import requests
-from behave import *
+from behave import step
 
 from pom.locators import Locators
 from utilities import get_data_from_file, get_github_api_headers
@@ -39,15 +39,20 @@ def step_impl(context, var_data):
     setattr(context_obj, context_var, response)
 
 
-@then("I print the response code")
-def step_impl(context):
+@step("I verify the response code is {code:d}")
+def step_impl(context, code):
     """
     Prints the response code from the response object found in the context table.
+    Verifies that the response code matches expected `code`.
+    :param code: expected response code
     :type context: behave.runner.Context
     """
     var_name = context.table.headings[0]
     response = eval(var_name)
-    print(f"Response status code: {response.status_code}")
+
+    status_code = response.status_code
+    print(f"Response status code: {status_code}")
+    assert code == status_code, f"Expected code: {code}. Response code: {status_code}."
 
 
 @step("I print user data")
@@ -63,7 +68,7 @@ def step_impl(context):
     pprint(response.json())
 
 
-@then("Displayed {data_entry} matches API response")
+@step("Displayed {data_entry} matches API response")
 def step_impl(context, data_entry):
     """
     Checks if displayed `data_entry` matches the API response stored in `context.table`.
@@ -116,16 +121,14 @@ def step_impl(context, data_entry):
         f"Error comparing UI and API values for {data_entry}. API: {api_data}. UI: {ui_data}"
 
 
-@step("I update test user with {data_set}")
-def step_impl(context, data_set):
+@step("I update test user with {data_set} and save the response to {var_response}")
+def step_impl(context, data_set, var_response):
     """
     Updates GitHub `user_name` with info from `data_set`.
+    :param var_response: variable name for the response object
     :param data_set: data set that we are going to use to update our user
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
-    user_name = eval(var_name)
-
     data = json.loads(get_data_from_file("test_data.json"))[data_set]
     token = get_data_from_file("secrets/github_token")
 
@@ -136,10 +139,10 @@ def step_impl(context, data_set):
         timeout=(2, 5)
     )
 
-    print(f"Response status code: {response.status_code}")
+    setattr(context, var_response, response)
 
 
-@when("I set username as {user_name} and save it to {var_name}")
+@step("I set username as {user_name} and save it to {var_name}")
 def step_impl(context, user_name, var_name):
     """
     Setups `user_name` as a test user by saving it to `context.var_name`.
