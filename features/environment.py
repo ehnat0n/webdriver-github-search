@@ -26,7 +26,7 @@ def browser_chrome(context):
     context.browser.quit()
 
 
-def before_feature(context):
+def before_feature(context, feature):
     """Set up Chrome fixture, wait and web app elements for every feature run."""
     use_fixture(browser_chrome, context)
     context.wait = WebDriverWait(context.browser, EXPLICIT_WAIT)

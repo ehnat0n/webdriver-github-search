@@ -15,7 +15,7 @@ Requirements:
 """
 
   Scenario: The follow button should redirect to GitHub
-    Given I set username as ehnat0n and save it to user_name
+    Given I set username as nadvolod and save it to user_name
     When Navigate to project homepage
     And I search for user using search button
       | context.user_name |
@@ -58,7 +58,6 @@ Requirements:
       | context.user_name |
     Then I verify the response code is 200
       | context.response_data |
-    And Wait for 20 seconds
     Given I get user info from GitHub API and save it to feature.user_data
       | context.user_name |
     When Navigate to project homepage
