@@ -16,7 +16,7 @@ def step_impl(context):
     context.browser.get(Locators.HOME_PAGE)
 
 
-@then("Wait for {num:d} seconds")
+@step("Wait for {num:d} seconds")
 def step_impl(context, num):
     """
     Utility method to wait for the specified amount of seconds for visual verification.
@@ -26,11 +26,21 @@ def step_impl(context, num):
     time.sleep(num)
 
 
-@step("I search for {user_name} using search button")
-def step_impl(context, user_name):
+@step("I search for user using search button")
+def step_impl(context):
     """
-    Enter the username to lookup on GitHub website and click the search button.
-    :param user_name: GitHub username that we are trying to find
+    Searches for username from `context.table`.
     :type context: behave.runner.Context
     """
+    var_name = context.table.headings[0]
+    user_name = eval(var_name)
+
     context.search_field_element.search_for_user(user_name)
+
+
+@step("Refresh the page")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.browser.refresh()

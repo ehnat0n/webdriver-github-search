@@ -17,7 +17,7 @@ Automated test cases are in `features/<component>.feature` files.
 
 ## Test user data
 
-Test data sets are stored in `test_data.json` file. You can use it with any account that you control. GitHub's authentication token will be required. Code expects it at `secrets/github_token` relative path.
+Test data sets are stored in `test_data.json` file. You can use it with any account that you control. GitHub's authentication token will be required for updates. Code expects it at `secrets/github_token` relative path.
 
 ## Setup:
 

@@ -1,0 +1,18 @@
+{
+  "empty_data": {
+    "bio": null,
+    "blog": "",
+    "company": null,
+    "location": null,
+    "name": null,
+    "twitter_username": null
+  },
+  "full_data": {
+    "bio": "my bio",
+    "blog": "https://google.com",
+    "company": "my org",
+    "location": "special place",
+    "name": "D I",
+    "twitter_username": "what_is_twitter"
+  }
+}

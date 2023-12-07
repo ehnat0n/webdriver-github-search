@@ -24,3 +24,4 @@ class Locators:
     # GitHub API endpoints
     GITHUB_HOMEPAGE = "https://github.com/"
     GITHUB_API_USERS = "https://api.github.com/users/"
+    GITHUB_API_AUTH_USER = "https://api.github.com/user"
