@@ -15,11 +15,17 @@ and Enter/Return or clicking on the Search button.
 3. Not valid username populates an empty result.
 """
 
-  Scenario: Navigate to
+  Scenario: Search for user with the Search button
+    Given I set username as ehnat0n and save it to user_name
     When Navigate to project homepage
-    Then Wait for 5 seconds
+    And I search for user using Search Button
+      | context.user_name |
+    Then Wait for 3 seconds
 
-  Scenario: Search for user
+  @wip
+  Scenario: Search for user with the Enter Key
+    Given I set username as ehnat0n and save it to user_name
     When Navigate to project homepage
-    And I search for ehnat0n using search button
-    Then Wait for 5 seconds
+    And I search for user using Enter Key
+      | context.user_name |
+    Then Wait for 3 seconds

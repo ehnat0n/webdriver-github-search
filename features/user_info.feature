@@ -17,7 +17,7 @@ Requirements:
   Scenario: The follow button should redirect to GitHub
     Given I set username as nadvolod and save it to user_name
     When Navigate to project homepage
-    And I search for user using search button
+    And I search for user using Search Button
       | context.user_name |
     Then Follow button should redirect to the user's GitHub profile
       | context.user_name |
@@ -25,7 +25,7 @@ Requirements:
   Scenario: Blog link redirects to the corresponding URL
     Given I set username as nadvolod and save it to user_name
     When Navigate to project homepage
-    And I search for user using search button
+    And I search for user using Search Button
       | context.user_name |
     Then Blog link should redirect to the displayed URL
 
@@ -36,11 +36,11 @@ Requirements:
     Then I verify the response code is 200
       | context.feature.user_data |
     When Navigate to project homepage
-    And I search for user using search button
+    And I search for user using Search Button
       | context.user_name |
 
   Scenario Outline: The user’s component populates Full Name, Twitter, Bio, Company Name, Location, and Blog
-    Then Displayed <data> matches API response
+    Then Displayed User Info <data> matches API response
       | context.feature.user_data |
 
     Examples:
@@ -61,11 +61,11 @@ Requirements:
     Given I get user info from GitHub API and save it to feature.user_data
       | context.user_name |
     When Navigate to project homepage
-    And I search for user using search button
+    And I search for user using Search Button
       | context.user_name |
 
   Scenario Outline: For non existing data blank fields should be displayed, location - "earth"
-    Then Displayed <data> matches API response
+    Then Displayed User Info <data> matches API response
       | context.feature.user_data |
 
     Examples:
@@ -86,11 +86,11 @@ Requirements:
     And I get user info from GitHub API and save it to feature.user_data
       | context.user_name |
     And Navigate to project homepage
-    And I search for user using search button
+    And I search for user using Search Button
       | context.user_name |
 
   Scenario Outline: All data should be updated (page refresh) once changes applied on GitHub app
-    Then Displayed <data> matches API response
+    Then Displayed User Info <data> matches API response
       | context.feature.user_data |
 
     Examples:

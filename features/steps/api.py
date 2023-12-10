@@ -68,7 +68,7 @@ def step_impl(context):
     pprint(response.json())
 
 
-@step("Displayed {data_entry} matches API response")
+@step("Displayed User Info {data_entry} matches API response")
 def step_impl(context, data_entry):
     """
     Checks if displayed `data_entry` matches the API response stored in `context.table`.

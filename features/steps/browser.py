@@ -26,7 +26,7 @@ def step_impl(context, num):
     time.sleep(num)
 
 
-@step("I search for user using search button")
+@step("I search for user using Search Button")
 def step_impl(context):
     """
     Searches for username from `context.table`. Waits for the follow button link update.
@@ -35,7 +35,7 @@ def step_impl(context):
     var_name = context.table.headings[0]
     user_name = eval(var_name)
 
-    context.search_field_element.search_for_user(user_name)
+    context.search_field_element.search_for_user_with_click(user_name)
 
     expected_link = Locators.GITHUB_HOMEPAGE + user_name
     context.user_info_element.wait_for_the_fb_link_to_be(expected_link)
@@ -68,7 +68,7 @@ def step_impl(context):
         f"Follow link opens wrong page that doesn't contain {expected_link}"
 
 
-@then("Blog link should redirect to the displayed URL")
+@step("Blog link should redirect to the displayed URL")
 def step_impl(context):
     """
     Check that the blog link redirects to displayed URL.
