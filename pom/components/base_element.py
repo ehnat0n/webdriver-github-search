@@ -22,7 +22,7 @@ class BaseElement:
     def find_visible_element(self, locator):
         """Returns WebElement with specified locator after explicit wait
         for element being visible."""
-        return self.wait.until(ec.presence_of_element_located(locator))
+        return self.wait.until(ec.visibility_of_element_located(locator))
 
     def find_elements(self, locator):
         """Returns all WebElements with specified locator after explicit wait
@@ -32,7 +32,7 @@ class BaseElement:
     def find_visible_elements(self, locator):
         """Returns all WebElements with specified locator after explicit wait
         for elements being visible."""
-        return self.wait.until(ec.presence_of_all_elements_located(locator))
+        return self.wait.until(ec.visibility_of_all_elements_located(locator))
 
     def get_element_text(self, locator):
         """Returns elements text. Using only presence check method,

@@ -150,4 +150,88 @@ def step_impl(context, user_name, var_name):
     :param user_name: setup username to use in the following steps
     :type context: behave.runner.Context
     """
+    print(f"User: {user_name}. Variable: {var_name}.")
     setattr(context, var_name, user_name)
+
+
+@step("I get first 100 user followers from GitHub API and save it to {var_followers}")
+def step_impl(context, var_followers):
+    """
+    :param context: the context object that holds the context information of the test scenario.
+    :param var_followers: the variable name in which the user followers will be saved.
+
+    :return: None
+
+    This method retrieves the followers of a user from the GitHub API and saves it to the specified variable.
+    """
+    var_name = context.table.headings[0]
+    user_name = eval(var_name)
+
+    token = get_data_from_file("secrets/github_token")
+
+    print(f"Fetching followers for {user_name}.")
+
+    response = requests.get(
+        Locators.GITHUB_API_USERS + user_name + "/followers",
+        headers=get_github_api_headers(token),
+        params={"per_page": 100},
+        timeout=(2, 5)
+    )
+
+    setattr(context, var_followers, response)
+
+
+@step("I follow the user and save response to {var_response}")
+def step_impl(context, var_response):
+    """
+    :param context: The context object for the scenario.
+    :param var_response: The variable name to save the response to.
+
+    :return: None
+
+    This step follows the target user with username from context table and \
+    saves the response to the specified variable.
+    """
+    var_names = context.table.headings
+    user_name = eval(var_names[0])
+    target_name = eval(var_names[1])
+
+    token = get_data_from_file("secrets/github_token")
+
+    print(f"Following user {target_name} with username {user_name}.")
+
+    response = requests.put(
+        Locators.GITHUB_API_AUTH_USER + "/following/" + target_name,
+        headers=get_github_api_headers(token),
+        timeout=(2, 5)
+    )
+
+    setattr(context, var_response, response)
+
+
+@step("I unfollow the user and save response to {var_response}")
+def step_impl(context, var_response):
+    """
+    :param context: The context object for the scenario test.
+    :param var_response: The variable name to save the response object.
+
+    :return: None.
+
+    This step unfollows the target user with username from context table and \
+    saves the response to the specified variable.
+    """
+    var_names = context.table.headings
+    user_name = eval(var_names[0])
+    target_name = eval(var_names[1])
+
+    token = get_data_from_file("secrets/github_token")
+
+    print(f"Unfollowing user {target_name} with username {user_name}.")
+
+    response = requests.delete(
+        Locators.GITHUB_API_AUTH_USER + "/following/" + target_name,
+        headers=get_github_api_headers(token),
+        timeout=(2, 5)
+    )
+
+    setattr(context, var_response, response)

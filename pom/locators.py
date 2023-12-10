@@ -22,6 +22,10 @@ class Locators:
     LOCATION = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//div[@class='links']/p[2]")
     BLOG = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//div[@class='links']/a")
 
+    # Followers component
+    FOLLOWERS_CONTAINER = (By.XPATH, "//div[@class='followers']")
+    FOLLOWER_ENTRY = (By.XPATH, "//div[@class='followers']/article")
+
     # GitHub API endpoints
     GITHUB_HOMEPAGE = "https://github.com/"
     GITHUB_API_USERS = "https://api.github.com/users/"

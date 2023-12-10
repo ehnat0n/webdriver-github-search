@@ -22,7 +22,6 @@ and Enter/Return or clicking on the Search button.
       | context.user_name |
     Then Wait for 3 seconds
 
-  @wip
   Scenario: Search for user with the Enter Key
     Given I set username as ehnat0n and save it to user_name
     When Navigate to project homepage

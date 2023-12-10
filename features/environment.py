@@ -4,6 +4,7 @@ from selenium.webdriver import Chrome
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pom.components.search_field import SearchField
+from pom.components.user_followers import Followers
 from pom.components.user_info import UserInfo
 
 # -- CONFIG
@@ -38,5 +39,6 @@ def before_feature(context, feature):
     # Creating instances to work with app components
     context.search_field_element = SearchField(context)
     context.user_info_element = UserInfo(context)
+    context.user_followers_element = Followers(context)
 
     # -- CLEANUP-FIXTURE is called after after_feature() hook
