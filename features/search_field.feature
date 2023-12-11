@@ -23,8 +23,22 @@ and Enter/Return or clicking on the Search button.
     Then Wait for 3 seconds
 
   Scenario: Search for user with the Enter Key
-    Given I set username as ehnat0n and save it to user_name
+    Given I set username as galiur and save it to user_name
     When Navigate to project homepage
     And I search for user using Enter Key
+      | context.user_name |
+    Then Wait for 3 seconds
+
+
+  Scenario: Search an empty value
+    When Navigate to project homepage
+    And I search an empty value
+    Then Wait for 3 seconds
+
+
+  Scenario: Search for not existing user
+    Given I set username as ggg452 and save it to user_name
+    When Navigate to project homepage
+    And I search for not existing user using Enter Key
       | context.user_name |
     Then Wait for 3 seconds
