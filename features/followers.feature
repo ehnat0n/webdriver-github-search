@@ -31,14 +31,14 @@ in the followers list of the default nadvolod profile.
   Scenario Outline: Max number of followers should be 100
     Given I set username as <username> and save it to username
     When I get first 100 user followers from GitHub API and save it to followers
-      | context.username |
+      | username |
     Then I verify the response code is 200
-      | context.followers |
+      | followers |
     When Navigate to project homepage
     And I search for user using Search Button
-      | context.username |
+      | username |
     Then I verify followers list length matches saved data
-      | context.followers |
+      | followers |
 
     # 0 - 100 - 1 - 101 - 42
     Examples:
@@ -52,33 +52,33 @@ in the followers list of the default nadvolod profile.
   Scenario: Each follower has a Name and Link
     Given I set username as DevTides and save it to username
     When I get first 100 user followers from GitHub API and save it to followers
-      | context.username |
+      | username |
     Then I verify the response code is 200
-      | context.followers |
+      | followers |
     When Navigate to project homepage
     And I search for user using Search Button
-      | context.username |
+      | username |
     Then I verify every follower in the list has a proper GitHub username and profile link
-      | context.followers |
+      | followers |
 
   Scenario: All data should be updated once changes are applied to the GitHub app
     Given I set username as ehnat0n and save it to username
     And I set username as kamre and save it to target_username
     When I unfollow the user and save response to response
-      | context.username | context.target_username |
+      | username | target_username |
     Then I verify the response code is 204
-      | context.response |
+      | response |
     When Navigate to project homepage
     And I search for user using Search Button
-      | context.target_username |
+      | target_username |
     Then I verify user is not listed in the Followers component
-      | context.target_username | context.username |
+      | target_username | username |
     When I follow the user and save response to response
-      | context.username | context.target_username |
+      | username | target_username |
     Then I verify the response code is 204
-      | context.response |
+      | response |
     When Navigate to project homepage
     And I search for user using Search Button
-      | context.target_username |
+      | target_username |
     Then I verify user is listed in the Followers component
-      | context.username |
+      | username |

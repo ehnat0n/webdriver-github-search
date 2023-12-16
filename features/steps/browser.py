@@ -35,7 +35,7 @@ def step_impl(context):
     Searches for username from `context.table`. Waits for the follow button link update.
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     user_name = eval(var_name)
 
     SearchField(context).search_for_user_with_click(user_name)
@@ -61,7 +61,7 @@ def step_impl(context):
     for user's GitHun profile.
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     user_name = eval(var_name)
 
     expected_link = Locators.GITHUB_HOMEPAGE + user_name
@@ -98,7 +98,7 @@ def step_impl(context):
     the followers list from the user_followers_element.
     If the lengths don't match, an assertion error is raised with an appropriate error message.
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     response = eval(var_name)
 
     if not Followers(context).is_followers_list_empty():
@@ -123,7 +123,7 @@ def step_impl(context):
     This method verifies that every follower in the list has a username/profile pair that \
     matches with GitHub API data.
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     response = eval(var_name)
 
     followers_list = Followers(context).get_followers()
@@ -156,7 +156,7 @@ def step_impl(context, status_str):
     This step verifies if a user "is"/"is not" listed in the Followers component. \
     Raises a ValueError for any other invalid status string.
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     user_name = eval(var_name)
 
     match status_str:
