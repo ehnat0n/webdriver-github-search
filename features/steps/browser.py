@@ -45,13 +45,13 @@ def step_impl(context):
     UserInfo(context).wait_for_the_fb_link_to_be(expected_link)
 
 
-@step("I search for user using Enter Key")
+@step("I search for existing user using Enter Key")
 def step_impl(context):
     """
     Searches for username from `context.table`. Waits for the follow button link update.
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     user_name = eval(var_name)
 
     context.search_field_element.search_for_user_with_key(user_name)
@@ -60,22 +60,18 @@ def step_impl(context):
     context.user_info_element.wait_for_the_fb_link_to_be(expected_link)
 
 
-@step("I search an empty value")
-def step_impl(context):
-    """Searches for an empty value
-    :type context: behave.runner.Context
-    """
-    context.search_field_element.search_for_user_with_key("   ")
-    context.search_field_element.check_empty_search_results()
-
-
+@step("I search an empty value with a key")
 @step("I search for not existing user using Enter Key")
 def step_impl(context):
     """Searches for non-existing username from `context.table`
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
-    user_name = eval(var_name)
+    try:
+        var_name = "context." + context.table.headings[0]
+    except AttributeError:
+        user_name = " "
+    else:
+        user_name = eval(var_name)
 
     context.search_field_element.search_for_user_with_key(user_name)
     context.search_field_element.check_empty_search_results()

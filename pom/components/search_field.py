@@ -27,4 +27,3 @@ class SearchField(BaseElement):
             self.wait.until_not(ec.presence_of_element_located(Locators.SEARCH_RESULTS))
         except TimeoutException:
             print("Search results are not empty. Test failed.")
-
