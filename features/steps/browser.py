@@ -54,10 +54,10 @@ def step_impl(context):
     var_name = "context." + context.table.headings[0]
     user_name = eval(var_name)
 
-    context.search_field_element.search_for_user_with_key(user_name)
+    SearchField(context).search_for_user_with_key(user_name)
 
     expected_link = Locators.GITHUB_HOMEPAGE + user_name
-    context.user_info_element.wait_for_the_fb_link_to_be(expected_link)
+    UserInfo(context).wait_for_the_fb_link_to_be(expected_link)
 
 
 @step("I search an empty value with a key")
@@ -73,8 +73,8 @@ def step_impl(context):
     else:
         user_name = eval(var_name)
 
-    context.search_field_element.search_for_user_with_key(user_name)
-    context.search_field_element.check_empty_search_results()
+    SearchField(context).search_for_user_with_key(user_name)
+    SearchField(context).check_empty_search_results()
 
 
 @step("Refresh the page")
