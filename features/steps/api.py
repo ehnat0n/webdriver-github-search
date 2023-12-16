@@ -5,6 +5,7 @@ from pprint import pprint
 import requests
 from behave import step
 
+from pom.components.user_info import UserInfo
 from pom.locators import Locators
 from utilities import get_data_from_file, get_github_api_headers
 
@@ -115,7 +116,7 @@ def step_impl(context, data_entry):
         if data_key == "twitter_username":
             api_data = "@" + api_data
 
-    ui_data = context.user_info_element.get_element_text(element_locator)
+    ui_data = UserInfo(context).get_element_text(element_locator)
 
     assert api_data == ui_data, \
         f"Error comparing UI and API values for {data_entry}. API: {api_data}. UI: {ui_data}"

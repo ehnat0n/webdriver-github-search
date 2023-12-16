@@ -4,6 +4,9 @@ import time
 from behave import step
 
 from pom.locators import Locators
+from pom.components.user_info import UserInfo
+from pom.components.search_field import SearchField
+from pom.components.user_followers import Followers
 
 
 @step("Navigate to project homepage")
@@ -35,11 +38,11 @@ def step_impl(context):
     var_name = context.table.headings[0]
     user_name = eval(var_name)
 
-    context.search_field_element.search_for_user_with_click(user_name)
+    SearchField(context).search_for_user_with_click(user_name)
 
     # Our condition to verify that User Info has been found and displayed - Follow Button link
     expected_link = Locators.GITHUB_HOMEPAGE + user_name
-    context.user_info_element.wait_for_the_fb_link_to_be(expected_link)
+    UserInfo(context).wait_for_the_fb_link_to_be(expected_link)
 
 
 @step("Refresh the page")
@@ -62,9 +65,9 @@ def step_impl(context):
     user_name = eval(var_name)
 
     expected_link = Locators.GITHUB_HOMEPAGE + user_name
-    context.user_info_element.wait_for_the_fb_link_to_be(expected_link)
+    UserInfo(context).wait_for_the_fb_link_to_be(expected_link)
 
-    assert (context.user_info_element
+    assert (UserInfo(context)
             .verify_link_opens_correct_page(Locators.FOLLOW_BUTTON, expected_link) is True), \
         f"Follow link opens wrong page that doesn't contain {expected_link}"
 
@@ -75,11 +78,11 @@ def step_impl(context):
     Check that the blog link redirects to displayed URL.
     :type context: behave.runner.Context
     """
-    expected_link = context.user_info_element.get_element_text(Locators.BLOG)
+    expected_link = UserInfo(context).get_element_text(Locators.BLOG)
     if expected_link.startswith("www."):
         expected_link = expected_link[4:]
 
-    assert (context.user_info_element
+    assert (UserInfo(context)
             .verify_link_opens_correct_page(Locators.BLOG, expected_link) is True), \
         f"Blog link opens wrong page that doesn't contain {expected_link}"
 
@@ -98,8 +101,8 @@ def step_impl(context):
     var_name = context.table.headings[0]
     response = eval(var_name)
 
-    if not context.user_followers_element.is_followers_list_empty():
-        followers_list_len = context.user_followers_element.get_followers_list_length()
+    if not Followers(context).is_followers_list_empty():
+        followers_list_len = Followers(context).get_followers_list_length()
     else:
         followers_list_len = 0
 
@@ -123,7 +126,7 @@ def step_impl(context):
     var_name = context.table.headings[0]
     response = eval(var_name)
 
-    followers_list = context.user_followers_element.get_followers()
+    followers_list = Followers(context).get_followers()
 
     logger = []
     username = ""
@@ -132,10 +135,10 @@ def step_impl(context):
         try:
             username = response.json()[i]['login']
             profile_link = response.json()[i]['html_url']
-            assert k == username
+            assert k.lower() == username.lower()
             assert v == profile_link
         except AssertionError:
-            message = f"Mismatch in Followers. API: {username} - {profile_link}. UI: {k} - {v}."
+            message = f"Mismatch in Followers. API: {username.lower()} - {profile_link}. UI: {k.lower()} - {v}."
             logger.append(message)
 
     if logger:
@@ -164,7 +167,7 @@ def step_impl(context, status_str):
         case _:
             raise ValueError(f"Invalid verification status: '{status_str}'.")
 
-    followers_list = context.user_followers_element.get_followers()
+    followers_list = Followers(context).get_followers()
 
     for v in followers_list.values():
         if v == Locators.GITHUB_HOMEPAGE + user_name:

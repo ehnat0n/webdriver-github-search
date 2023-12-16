@@ -1,13 +1,17 @@
 """Reusable base element methods for Selenium WebDriver."""
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BaseElement:
     """Base Element class that contains most common methods and aliases for all pom."""
 
+    # Config
+    EXPLICIT_WAIT = 5
+
     def __init__(self, context):
         self.driver = context.browser
-        self.wait = context.wait
+        self.wait = WebDriverWait(context.browser, BaseElement.EXPLICIT_WAIT)
 
     def click(self, locator):
         """Click on the element with specified locator after explicit wait
