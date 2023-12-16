@@ -13,6 +13,9 @@ class Locators:
     SEARCH_FIELD = (By.XPATH, "//input[@data-testid='search-bar']")
     SEARCH_BUTTON = (By.XPATH, "//button[@type='submit']")
 
+    # Search results
+    SEARCH_RESULTS = (By.XPATH, "//section[2] | //section[3]")
+
     # User Info component
     FULL_NAME = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//header//h4")
     TWITTER = (By.XPATH, "//article[contains(@class,'sc-dkrFOg')]//header//p")
