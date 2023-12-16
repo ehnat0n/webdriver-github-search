@@ -18,7 +18,7 @@ def step_impl(context, var_data):
     :param var_data: name of the context variable that we are going to use to save user data
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     user_name = eval(var_name)
 
     token = get_data_from_file("secrets/github_token")
@@ -48,7 +48,7 @@ def step_impl(context, code):
     :param code: expected response code
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     response = eval(var_name)
 
     status_code = response.status_code
@@ -62,7 +62,7 @@ def step_impl(context):
     Prints the data from the response object found in the context table.
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     print(var_name)
     response = eval(var_name)
 
@@ -77,7 +77,7 @@ def step_impl(context, data_entry):
     (Full Name, Twitter, Bio, Company Name, Location, Blog)
     :type context: behave.runner.Context
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     response = eval(var_name)
 
     data_key = ""
@@ -165,7 +165,7 @@ def step_impl(context, var_followers):
 
     This method retrieves the followers of a user from the GitHub API and saves it to the specified variable.
     """
-    var_name = context.table.headings[0]
+    var_name = "context." + context.table.headings[0]
     user_name = eval(var_name)
 
     token = get_data_from_file("secrets/github_token")
@@ -194,8 +194,8 @@ def step_impl(context, var_response):
     saves the response to the specified variable.
     """
     var_names = context.table.headings
-    user_name = eval(var_names[0])
-    target_name = eval(var_names[1])
+    user_name = eval("context." + var_names[0])
+    target_name = eval("context." + var_names[1])
 
     token = get_data_from_file("secrets/github_token")
 
@@ -222,8 +222,8 @@ def step_impl(context, var_response):
     saves the response to the specified variable.
     """
     var_names = context.table.headings
-    user_name = eval(var_names[0])
-    target_name = eval(var_names[1])
+    user_name = eval("context." + var_names[0])
+    target_name = eval("context." + var_names[1])
 
     token = get_data_from_file("secrets/github_token")
 
